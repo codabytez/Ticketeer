@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import Ticket from "./ticket";
@@ -8,8 +7,8 @@ import TicketReady from "./ticket-ready";
 
 const Events: NextPage = () => {
   const [step, setStep] = useState(1);
-  const [selectedTicket, setSelectedTicket] = useState<number | null>(null);
   const [isClient, setIsClient] = useState(false);
+  const [selectedTicket, setSelectedTicket] = useState<number | null>(null);
   const width = (100 / 3) * step;
 
   // Set isClient to true once the component mounts
@@ -66,11 +65,11 @@ const Events: NextPage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <div className="relative pt-1">
-          <div className="flex mb-2 items-center justify-between">
-            <div className="text-lg font-semibold">
+    <div className="flex flex-col items-center gap-12 self-stretch">
+      <div className="flex w-full max-w-[700px] p-6 md:p-12 flex-col justify-center items-center gap-8 rounded-[32px] md:rounded-[40px] border border-border bg-background-secondary">
+        <div className="flex flex-col gap-3 self-stretch">
+          <div className="flex flex-col md:flex-row md:items-center gap-3 self-stretch">
+            <h3 className="flex-1 self-stretch text-white text-3xl">
               {step === 1
                 ? "Ticket Selection"
                 : step === 2
@@ -78,26 +77,24 @@ const Events: NextPage = () => {
                 : step === 3
                 ? "Ticket Ready"
                 : ""}
-            </div>
-            <div className="text-right">
-              <span className="text-sm font-semibold inline-block">
-                Step {step}/3
-              </span>
-            </div>
+            </h3>
+            <p className="text-grey-98">Step {step}/3</p>
           </div>
-          <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-gray-200">
+          <div className="flex h-1 rounded-[5px] bg-[#0E464F]">
             <div
-              style={{ width: `${width}%` }}
-              className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
-            ></div>
+              className={`self-stretch rounded-[5px] bg-[#24A0B5]  transition-all duration-500`}
+              style={{
+                width: `${width}%`,
+              }}
+            />
           </div>
         </div>
         {step === 1 && (
           <Ticket
+            handleNextStep={handleNextStep}
             handlePreviousStep={handlePreviousStep}
             selectedTicket={selectedTicket}
             handleSelectTicket={handleSelectTicket}
-            handleNextStep={handleNextStep}
           />
         )}
         {step === 2 && (
